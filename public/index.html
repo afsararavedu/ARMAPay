@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ARMAPay</title>
+<meta name="description" content="UPI-style payments with a built-in Undo for payments you suspect are fraud.">
+<meta name="theme-color" content="#0A4A44">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ARMAPay">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="stage">
+  <div class="shell">
+    <div class="demo-bar" id="demobar">Demo mode: simulated money only. No real bank account is used.</div>
+    <div class="offline-bar" id="offbar" hidden>You're offline. Payments need a connection.</div>
+    <main id="view"><div class="splash">Loading ARMAPay…</div></main>
+    <footer class="site-foot" id="sitefoot"><p>Developed By Afser &amp; Srikanth J.</p><p>Copyright &copy; <span id="foot-year">2026</span> WayCup Chai &middot; <a href="https://waycupchai.com" target="_blank" rel="noopener noreferrer">waycupchai.com</a></p></footer>
+    <nav class="tabbar" id="tabbar" aria-label="Main" hidden></nav>
+  </div>
+  <aside class="explain" aria-label="How Undo works">
+    <p class="eyebrow" style="color:var(--accent)">ARMAPay</p>
+    <h2>Undo, built into the ledger</h2>
+    <p>Every outgoing payment stays reversible for <b id="ex-win">15</b> minutes. Tapping Undo asks for your UPI PIN, then runs one reversal in a single database transaction.</p>
+    <h3>What the reversal does</h3>
+    <ol>
+      <li>Moves the money from the recipient back to the bank account you paid from.</li>
+      <li>If the recipient already spent part of it, recovers what is left and holds the rest against their account. Their next incoming payments settle the hold.</li>
+      <li>Logs your reason (fraud, scam, laundering, wrong person). Reports show up as a warning to anyone about to pay that account.</li>
+      <li>Saved contacts pay instantly. New payees are verified by name first and capped at <b id="ex-new">₹5,000</b> per payment.</li>
+    </ol>
+    <h3>Collect-request scams</h3>
+    <p>A common scam: someone sends a "pay me" request and says you will <i>receive</i> money. Approving it with your PIN actually <i>pays</i> them. ARMAPay turns the screen orange for these requests, lists the warning signs, and asks you to tick a box before the PIN. Screens for money you receive keep their normal colours and never ask for a PIN.</p>
+    <h3>Abuse guard</h3>
+    <p>After <b id="ex-abuse">3</b> undos in <span id="ex-days">30</span> days, the next one goes to manual review instead of reversing instantly. After the window closes, you can raise a dispute.</p>
+  </aside>
+</div>
+
+<div class="overlay" id="sheet" hidden><div class="backdrop" data-act="closesheet"></div><div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div><div class="sheet-body"></div></div></div>
+<div class="overlay top" id="pin" hidden><div class="backdrop" data-act="closepin"></div><div class="sheet" role="dialog" aria-modal="true" aria-label="Enter UPI PIN"><div class="grab"></div><div class="sheet-body"></div></div></div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="/vendor/qrcode.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

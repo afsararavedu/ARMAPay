@@ -1,0 +1,20 @@
+{
+  "name": "armapay",
+  "version": "1.0.0",
+  "description": "ARMAPay: UPI-style payments sandbox with instant Undo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node src/server.js",
+    "test": "node --test",
+    "seed": "node src/seed.js",
+    "backup": "node scripts/backup.js"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^13.0.3"
+  }
+}
